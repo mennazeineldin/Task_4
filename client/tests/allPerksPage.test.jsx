@@ -40,15 +40,44 @@ describe('AllPerks page (Directory)', () => {
     expect(screen.getByText(/showing/i)).toHaveTextContent('Showing');
   });
 
-  /*
-  TODO: Test merchant filtering
-  - use the seeded record
-  - perform a real HTTP fetch.
-  - wait for the fetch to finish
-  - choose the record's merchant from the dropdown
-  - verify the record is displayed
-  - verify the summary text reflects the number of matching perks
-  */
+
+
+
+/*TODO Part*/
+
+ test('lists public perks and responds to merchant filtering', async () => {
+  const seededPerk = global.__TEST_CONTEXT__.seededPerk;
+
+  // Render page so it performs its real HTTP fetch
+  renderWithRouter(
+    <Routes>
+      <Route path="/explore" element={<AllPerks />} />
+    </Routes>,
+    { initialEntries: ['/explore'] }
+  );
+
+  // Wait for fetch to complete (baseline card must appear)
+  await waitFor(() => {
+    expect(screen.getByText(seededPerk.title)).toBeInTheDocument();
+  });
+
+  // Interact with merchant dropdown: select the seeded perk's merchant
+  const merchantSelect = screen.getByLabelText(/merchant/i);
+  fireEvent.change(merchantSelect, { target: { value: seededPerk.merchant } });
+
+  // Expect only the matching seed record to appear
+  await waitFor(() => {
+    expect(screen.getByText(seededPerk.title)).toBeInTheDocument();
+  });
+
+  // Summary text should reflect the new filtered count
+  expect(screen.getByText(/showing/i)).toHaveTextContent('Showing');
+});
+
+
+/* DONE Here*/
+
+
 
   test('lists public perks and responds to merchant filtering', async () => {
     // This will always fail until the TODO above is implemented.
