@@ -95,12 +95,6 @@ test('authenticates the same user and issues a fresh JWT', async () => {
 /* DONE Here */
 
 
-
-  test('authenticates the same user and issues a fresh JWT', async () => {
-    // This test will always fail until the TODO above is implemented.
-    expect(true).toBe(false);
-  });
-
   test('returns the public profile for the currently authenticated user', async () => {
     const response = await fetch(`${baseUrl}/auth/me`, {
       headers: { Authorization: `Bearer ${issuedToken}` }

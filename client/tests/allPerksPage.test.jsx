@@ -62,7 +62,7 @@ describe('AllPerks page (Directory)', () => {
   });
 
   // Interact with merchant dropdown: select the seeded perk's merchant
-  const merchantSelect = screen.getByLabelText(/merchant/i);
+  const merchantSelect = screen.getByRole('combobox');
   fireEvent.change(merchantSelect, { target: { value: seededPerk.merchant } });
 
   // Expect only the matching seed record to appear
@@ -74,13 +74,6 @@ describe('AllPerks page (Directory)', () => {
   expect(screen.getByText(/showing/i)).toHaveTextContent('Showing');
 });
 
-
-/* DONE Here*/
-
-
-
-  test('lists public perks and responds to merchant filtering', async () => {
-    // This will always fail until the TODO above is implemented.
-    expect(true).toBe(false);
-  });
 });
+
+
